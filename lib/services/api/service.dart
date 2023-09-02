@@ -11,7 +11,7 @@ abstract class APIService {
   };
 
   Dio get dio {
-    var _dio = Dio(BaseOptions(baseUrl: "http://api.ky2chain.com/"));
+    var _dio = Dio(BaseOptions(baseUrl: "http://15.164.213.210:8080/"));
 
     return _dio;
   }

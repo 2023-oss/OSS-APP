@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:ky2/models/auth/issue.dart';
 import 'package:ky2/models/auth/user.dart';
+import 'package:ky2/models/auth/verifiable_crendential.dart';
 import 'package:ky2/models/home/home.dart';
 import 'package:ky2/services/api/auth/auth_api.dart';
 import 'package:ky2/services/api/service.dart';
@@ -55,4 +56,34 @@ class _AuthService extends APIService with AuthAPI {
         .map((e) => Issue.fromJson(e))
         .toList();
   }
+
+  @override
+  Future<void> sendIdentify(String phone) async{
+    Response res = await dio.post(
+      '/auth/identify',
+      // options: Options(headers: {"Authorization": accessToken}),
+      data: {
+        'to': phone,
+      },
+    );
+  }
+
+  @override
+  Future<VerifiableCredential> getVerifiableCredential(String authNum, String publicKey, String name, String phone) async{
+    Response res = await dio.post(
+      '/auth/issue/vc',
+      // options: Options(headers: {"Authorization": accessToken}),
+      data: {
+        'authNum': authNum,
+        'publicKey': publicKey,
+        'name': name,
+        'phone': phone
+      },
+    );
+
+    return VerifiableCredential.fromJson(res.data);
+  }
+
+
+
 }
