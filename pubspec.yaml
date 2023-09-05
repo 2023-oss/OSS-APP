@@ -20,6 +20,8 @@ dependencies:
   local_auth: ^2.1.2
   fast_rsa: ^3.6.1
   flutter_secure_storage: ^9.0.0
+  crypto: ^3.0.3
+  qr_code_scanner: ^1.0.1
 
 dev_dependencies:
   flutter_test:

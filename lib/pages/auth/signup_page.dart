@@ -129,7 +129,7 @@ extension on SignupPage {
                   ),
                   SizedBox(height: 6),
                   ky2.TextField(
-                    controller: model.position,
+                    controller: model.phone,
                     textSize: 16,
                     hintText: "전화번호를 입력해주세요",
                   ),

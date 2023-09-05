@@ -13,7 +13,7 @@ class SigninfoPage extends StatelessWidget {
   final String id;
   final String pwd;
   final String name;
-  final String position;
+  final String phone;
   final String className;
 
   const SigninfoPage(
@@ -21,7 +21,7 @@ class SigninfoPage extends StatelessWidget {
       required this.id,
       required this.pwd,
       required this.name,
-      required this.position,
+      required this.phone,
       required this.className})
       : super(key: key);
 
@@ -29,7 +29,7 @@ class SigninfoPage extends StatelessWidget {
     required String id,
     required String pwd,
     required String name,
-    required String position,
+    required String phone,
     required String className,
   }) {
     return MaterialPageRoute<void>(
@@ -37,7 +37,7 @@ class SigninfoPage extends StatelessWidget {
         id: id,
         pwd: pwd,
         name: name,
-        position: position,
+        phone: phone,
         className: className,
       ),
     );
@@ -47,7 +47,7 @@ class SigninfoPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BaseScreen<SignInfoViewModel>(
       onModelReady: (model) {
-        model.initState(context, id, pwd, name, position, className);
+        model.initState(context, id, pwd, name, phone, className);
       },
       builder: (context, model, child) {
         return Scaffold(
@@ -114,8 +114,8 @@ extension on SigninfoPage {
               const SizedBox(height: 21),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: const <Widget>[
-                  Text(
+                children: <Widget>[
+                  const Text(
                     '',
                     style: TextStyle(
                       fontSize: 16,
@@ -123,8 +123,9 @@ extension on SigninfoPage {
                     ),
                     textAlign: TextAlign.start,
                   ),
-                  SizedBox(height: 6),
+                  const SizedBox(height: 6),
                   ky2.TextField(
+                    controller: model.authNum,
                     textSize: 16,
                     hintText: "인증코드",
                   ),

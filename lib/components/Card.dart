@@ -33,60 +33,55 @@ class Card extends StatelessWidget {
           )
         ],
       ),
-      child: GestureDetector(
-        onTap: () {
-          Navigator.of(context).push(CredentialDetailPage.route());
-        },
-        child: Stack(
-          children: [
-            Container(
-              width: MediaQuery.of(context).size.width,
-              padding: const EdgeInsets.all(15),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(24),
-                color: backgroundColor,
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    title,
-                    style: TextStyle(
-                      color: ky2Color.white.withOpacity(0.8),
-                      fontSize: 16,
-                    ),
+      child: Stack(
+        children: [
+          Container(
+            width: MediaQuery.of(context).size.width,
+            padding: const EdgeInsets.all(15),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(24),
+              color: backgroundColor,
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  style: TextStyle(
+                    color: ky2Color.white.withOpacity(0.8),
+                    fontSize: 16,
                   ),
-                  SizedBox(height: 3),
-                  Text(
-                    DateFormat('yyyy-MM-DD').format(date),
-                    style: TextStyle(
-                      color: ky2Color.white,
-                    ),
+                ),
+                SizedBox(height: 3),
+                Text(
+                  DateFormat('yyyy-MM-DD').format(date),
+                  style: TextStyle(
+                    color: ky2Color.white,
                   ),
-                  const SizedBox(height: 17),
-                  Text(
-                    rank,
-                    style: TextStyle(
-                      fontSize: 28,
-                      color: ky2Color.white,
-                      fontWeight: FontWeight.bold,
-                    ),
+                ),
+                const SizedBox(height: 17),
+                Text(
+                  rank,
+                  style: TextStyle(
+                    fontSize: 28,
+                    color: ky2Color.white,
+                    fontWeight: FontWeight.bold,
                   ),
-                ],
+                ),
+              ],
+            ),
+          ),
+          Positioned(
+            right: -25,
+            bottom: -50,
+            child: Opacity(
+              opacity: 0.5,
+              child: SvgPicture.asset(
+                'assets/logo_card.svg',
               ),
             ),
-            Positioned(
-              right: -25,
-              bottom: -50,
-              child: Opacity(
-                opacity: 0.5,
-                child: SvgPicture.asset(
-                  'assets/logo.svg',
-                ),
-              ),
-            )
-          ],
-        ),
+          )
+        ],
       ),
     );
   }

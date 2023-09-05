@@ -1,6 +1,8 @@
 import 'package:get_it/get_it.dart';
 import 'package:ky2/viewmodel/bio_viewmodel.dart';
 import 'package:ky2/viewmodel/calendar_viewmodel.dart';
+import 'package:ky2/viewmodel/form_submit_viewmodel.dart';
+import 'package:ky2/viewmodel/qr_scanner_viewmodel.dart';
 import 'package:ky2/viewmodel/issue_list_viewmodel.dart';
 import 'package:ky2/viewmodel/issue_viewmodel.dart';
 import 'package:ky2/viewmodel/login_viewmodel.dart';
@@ -21,4 +23,6 @@ void setupDiContainer() {
   diContainer.registerFactory(() => SignUpViewModel());
   diContainer.registerFactory(() => SignInfoViewModel());
   diContainer.registerFactory(() => IssueListViewModel());
+  diContainer.registerFactory(() => FormSubmitViewModel());
+  diContainer.registerFactory(() => QRScannerViewModel());
 }

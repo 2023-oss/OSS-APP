@@ -20,9 +20,9 @@ class LoginViewModel extends BaseViewModel {
     try{
       setState(ViewState.BUSY);
       var prefs = await SharedPreferences.getInstance();
-      String token = await authService.signIn(id.value.text, pwd.value.text);
-      prefs.setString('accessToken', token);
-      prefs.setString('id', id.value.text);
+      // String token = await authService.signIn(id.value.text, pwd.value.text);
+      // prefs.setString('accessToken', token);
+      // prefs.setString('id', id.value.text);
       setState(ViewState.IDLE);
       Navigator.of(context).push(MainTab.route());
     } on DioError catch (e){

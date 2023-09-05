@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ky2/components/Button.dart';
 import 'package:ky2/components/TextField.dart' as ky2;
 import 'package:ky2/core/base_screen.dart';
+import 'package:ky2/pages/main/qr_scanner_page.dart';
 import 'package:ky2/viewmodel/main_viewmodel.dart';
 import 'package:ky2/components/Card.dart' as ky2;
 import 'package:ky2/utils/ky2_color.dart';
@@ -26,6 +27,13 @@ class MainPage extends StatelessWidget {
           resizeToAvoidBottomInset: false,
           backgroundColor: Colors.white,
           body: _body(context, model),
+          floatingActionButton: FloatingActionButton(
+            backgroundColor: Colors.black,
+
+            onPressed: () {
+              Navigator.of(context).push(QRScannerPage.route());
+            },
+          ),
         );
       },
     );
@@ -68,7 +76,7 @@ extension on MainPage {
                         height: 3,
                       ),
                       Text(
-                        model.homes.length.toString(),
+                        '1',
                         style: TextStyle(
                           color: Colors.blue,
                           fontSize: 32,
@@ -121,11 +129,10 @@ extension on MainPage {
                   title: 'nice authentication',
                   rank: '개인정보자격',
                   date: DateTime.now(),
-                  backgroundColor: ky2Color.primary
-              ),
+                  backgroundColor: ky2Color.primary),
               const SizedBox(
                 height: 15,
-              )
+              ),
             ],
           ),
         ),

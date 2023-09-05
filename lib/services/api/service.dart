@@ -11,7 +11,13 @@ abstract class APIService {
   };
 
   Dio get dio {
-    var _dio = Dio(BaseOptions(baseUrl: "http://15.164.213.210:8080/"));
+    var _dio = Dio(BaseOptions(baseUrl: "http://43.201.77.195:8080/"));
+
+    return _dio;
+  }
+
+  Dio get orgDio {
+    var _dio = Dio(BaseOptions(baseUrl: "http://15.164.213.210:8000/"));
 
     return _dio;
   }

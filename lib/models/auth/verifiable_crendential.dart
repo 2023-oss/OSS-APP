@@ -16,17 +16,22 @@ class VerifiableCredential {
   });
 
   factory VerifiableCredential.fromJson(Map<String, dynamic> json) {
+
     return VerifiableCredential(
-      credentialSubject: CredentialSubject.fromJson(json['credentialSubject']),
+        credentialSubject: CredentialSubject.fromJson(json['credentialSubject']),
         id: json['id'],
-        type: (json['type'] as List<String>),
-        context: (json['context'] as List<String>)
+        type: (List<String>.from(json['type'])),
+        context: (List<String>.from(json['@context'])),
+
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
+      'credentialSubject': credentialSubject.toJson(),
       'id': id,
+      'type': type,
+      '@context': context,
     };
   }
 }

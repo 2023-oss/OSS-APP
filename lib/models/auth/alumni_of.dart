@@ -12,17 +12,17 @@ class AlumniOf {
 
 factory AlumniOf.fromJson(Map<String, dynamic> json) {
   return AlumniOf(
-    id: json['id'],
-    name: json['name'],
     phone: json['phone'],
+    name: json['name'],
+    id: json['id'],
   );
 }
 
 Map<String, dynamic> toJson() {
   return {
-    'id': id,
     'phone': phone,
     'name': name,
+    'id': id,
   };
 }
 }

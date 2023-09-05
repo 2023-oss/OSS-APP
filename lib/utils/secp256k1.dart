@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:typed_data';
+
 import './base.dart' as base;
 
 class PrivateKey {
@@ -132,4 +135,27 @@ class Signature {
   bool operator ==(other) {
     return other is Signature && (R == other.R && S == other.S);
   }
+
+  Uint8List bigIntToUint8List(BigInt number) {
+    final bytes = number.toRadixString(16);
+    final result = Uint8List((bytes.length / 2).ceil());
+    for (var i = 0; i < bytes.length; i += 2) {
+      final hex = bytes.substring(i, i + 2);
+      final byte = int.parse(hex, radix: 16);
+      result[i ~/ 2] = byte;
+    }
+    return result;
+  }
+
+  String toBase64() {
+    final rBytes = bigIntToUint8List(R);
+    final sBytes = bigIntToUint8List(S);
+    final totalBytes = Uint8List(rBytes.length + sBytes.length);
+
+    totalBytes.setRange(0, rBytes.length, rBytes);
+    totalBytes.setRange(rBytes.length, totalBytes.length, sBytes);
+
+    return base64Encode(totalBytes);
+  }
+
 }

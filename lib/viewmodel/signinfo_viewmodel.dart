@@ -1,9 +1,12 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:dio/dio.dart';
+import 'package:fast_rsa/fast_rsa.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:ky2/core/base_viewmodel.dart';
+import 'package:ky2/models/auth/verifiable_crendential.dart';
 import 'package:ky2/pages/auth/bio_auth_page.dart';
 import 'package:ky2/pages/auth/login_page.dart';
 import 'package:ky2/pages/auth/signinfo_page.dart';
@@ -17,32 +20,26 @@ class SignInfoViewModel extends BaseViewModel {
   String? pwd;
   String? name;
   String? className;
-  String? position;
-  final TextEditingController cmd = TextEditingController();
-  final TextEditingController cps = TextEditingController();
-  final TextEditingController division = TextEditingController();
-  final TextEditingController br = TextEditingController();
-  final TextEditingController bn = TextEditingController();
-  final TextEditingController co = TextEditingController();
-  final TextEditingController etc = TextEditingController();
+  String? phone;
+  final TextEditingController authNum = TextEditingController();
 
   void initState(
     BuildContext context,
     String _id,
     String _pwd,
     String _name,
-    String _position,
+    String _phone,
     String _className,
   ) async {
     print(_id);
     print(_pwd);
     print(_name);
-    print(_position);
+    print(_phone);
     print(_className);
     id = _id;
     pwd = _pwd;
     name = _name;
-    position = _position;
+    phone = _phone;
     className = _className;
     setState(ViewState.IDLE);
   }
@@ -51,49 +48,45 @@ class SignInfoViewModel extends BaseViewModel {
     print(id);
     print(pwd);
     print(name);
-    print(position);
+    print(phone);
     print(className);
-    if(
-      id != null && pwd != null && name != null && position != null && className != null
-    ){
-      User user = User(
-        id: id!,
-        pwd: pwd!,
-        className: className!,
-        name: name!,
-        position: position!,
-        cmd: cmd.text,
-        cps: cps.text,
-        division: division.text,
-        br: br.text,
-        bn: bn.text,
-        co: co.text,
-        etc: etc.text,
-      );
-
-      try{
+    if (id != null &&
+        pwd != null &&
+        name != null &&
+        phone != null &&
+        className != null) {
+      try {
         setState(ViewState.BUSY);
-        //await authService.signup(user);
-        PrivateKey privateKey = PrivateKey.generate();
-        print("-------privateKey--------");
-        print(privateKey.D);
-        print("-------publicKey--------");
-        print(privateKey.publicKey.toString());
 
         final storage = new FlutterSecureStorage();
-        bool isPrivateKey = await storage.containsKey(key: 'privateKey');
+        bool isPrivateKey = await storage.containsKey(key: 'rsa');
 
-        if( !isPrivateKey ) {
-          await storage.write(key: 'privateKey', value: privateKey.toHex());
+        if (!isPrivateKey) {
+          var result = await RSA.generate(2048);
+
+          await storage.write(key: 'rsa', value: result.privateKey);
+
+          VerifiableCredential verifiableCredential = await authService.getVerifiableCredential(authNum.value.text,
+              result.publicKey, name ?? '', phone ?? '');
+
+          await storage.write(key: 'vc', value: jsonEncode(verifiableCredential.toJson()));
+        }else{
+          String privateKey = await storage.read(key: 'rsa') ?? '';
+          String publicKey = await RSA.convertPrivateKeyToPublicKey(privateKey);
+
+          VerifiableCredential verifiableCredential = await authService.getVerifiableCredential(authNum.value.text,
+              publicKey, name ?? '', phone ?? '');
+
+          await storage.write(key: 'vc', value: jsonEncode(verifiableCredential.toJson()));
         }
 
         setState(ViewState.IDLE);
         Navigator.of(context).push(BioAuthPage.route());
-      } on DioError catch (e){
+
+      } on DioError catch (e) {
         print(e);
       }
-    }
-    else{
+    } else {
       print('???');
     }
   }
