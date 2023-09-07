@@ -1,9 +1,9 @@
 <p align="center">
-<img src="https://img.shields.io/github/contributors/2023-oss/OSS-PLATEWALLET">
-<img src="https://img.shields.io/github/languages/count/2023-oss/OSS-PLATEWALLET">
-<img alt="GitHub license" src="https://img.shields.io/github/issues/2023-oss/OSS-PLATEWALLET">
-<img alt="GitHub license" src="https://img.shields.io/github/issues-closed/2023-oss/OSS-PLATEWALLET">
-<img src="https://img.shields.io/github/license/2023-oss/OSS-PLATEWALLET">
+<img src="https://img.shields.io/github/contributors/2023-oss/OSS-APP">
+<img src="https://img.shields.io/github/languages/count/2023-oss/OSS-APP">
+<img alt="GitHub license" src="https://img.shields.io/github/issues/2023-oss/OSS-APP">
+<img alt="GitHub license" src="https://img.shields.io/github/issues-closed/2023-oss/OSS-APP">
+<img src="https://img.shields.io/github/license/2023-oss/OSS-APP">
 </p>
 <br/>
 
